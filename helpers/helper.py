@@ -4,7 +4,7 @@ from errors.DuplicateValueError import DuplicateValueError
 from models.Product import Product
 
 
-def create_product() -> Product:
+def create_product() -> Product or None:
     """
     Create a Product class instance by taking input from the user
     :return: Product class instance
@@ -17,8 +17,8 @@ def create_product() -> Product:
             raise DuplicateValueError("Product id must be unique.")
         # if all OK
         product_name = pyip.inputStr("Enter product name: ")
-        product_price = pyip.inputNum("Enter product price: ")
-        product_qty = int(pyip.inputNum("Enter product availability: "))
+        product_price = pyip.inputFloat("Enter product price: ")
+        product_qty = pyip.inputInt("Enter product availability: ")
         # returning the product payload
         return Product(product_id, product_name, product_price, product_qty)
     except ValueError:
@@ -43,4 +43,15 @@ def check_duplicate_product(product_id: str) -> bool:
 
 
 def menu_options():
-    pass
+    print("================== MENU ==================")
+    print("0 to exit the application")
+    print("[1] Add a new product")
+    print("[2] Get all product from the store")
+    print("[3] Get a product details by product id")
+    print("[4] Remove a product by product id")
+    print("[5] Remove all product by their name")
+    print("[6] Increase the product in the store")
+    print("[7] Decrease the product from the store")
+    print("[8] Change a product name")
+    print("[9] Change a product price")
+    print("==========================================")
