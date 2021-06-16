@@ -7,5 +7,7 @@ from helpers.helper import *
 
 if __name__ == "__main__":
     productController = ProductController()
+    product = create_product()
 
-    productController.add_new_product(create_product())
+    if product != None:
+        productController.add_new_product(product)
