@@ -2,7 +2,7 @@ import pyinputplus as pyip
 from models.Product import Product
 
 
-def create_product():
+def create_product() -> Product:
     """
     Create a Product class instance by taking input from the user
     :return: Product class instance
