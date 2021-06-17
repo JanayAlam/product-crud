@@ -29,7 +29,7 @@ class ProductController:
             # saving
             mydb.commit()
             # printing the message
-            print("SUCCESS: Product added into the database.")
+            print("SUCCESS: Product added into the database")
         except AttributeError:
             print("Attribute error in add_new_product method of ProductController")
             exit()
@@ -71,3 +71,18 @@ class ProductController:
             product[self.KEY_LIST[i-1]] = datas[i]
         # returning
         return product
+
+    def remove_product_by_product_id(self, product_id) -> bool:
+        """
+        Remove the prodcut from the database. Find the product and then delete it.
+        :param product_id: the product_id of that product
+        :return: True if succeed else False
+        """
+        # checking if the given product id is valid or not
+        product = self.get_product_by_product_id(product_id)
+        if len(product.values()) == 0:
+            return False
+        # if the given product id is valid
+        SQL_QUERY = f"DELETE FROM `product-crud`.`products` WHERE (`product_id` = '{product_id}');"
+        self.cursor.execute(SQL_QUERY)
+        return True

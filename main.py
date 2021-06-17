@@ -42,3 +42,11 @@ while True:
             print("Product not found")
         else:
             print(product)
+    elif op == 4:
+        # remove a specific product by product id
+        id = pyip.inputStr("Enter the product id: ")
+        result = productController.remove_product_by_product_id(id)
+        if result:
+            print("SUCCESS: Product removed from the database")
+        else:
+            print("Could not remove the product")
