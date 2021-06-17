@@ -29,5 +29,16 @@ while True:
     elif op == 2:
         # get all product
         list_of_products = productController.get_all_products()
-        for product in list_of_products:
+        if len(list_of_products) == 0:
+            print("No product stored in the database")
+        else:
+            for product in list_of_products:
+                print(product)
+    elif op == 3:
+        # get a specific product by product id
+        id = pyip.inputStr("Enter the product id: ")
+        product = productController.get_product_by_product_id(id)
+        if len(product.values()) == 0:
+            print("Product not found")
+        else:
             print(product)

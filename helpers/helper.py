@@ -43,6 +43,7 @@ def check_duplicate_product(product_id: str) -> bool:
 
 
 def menu_options():
+    """ Display the menu items """
     print("================== MENU ==================")
     print("0 to exit the application")
     print("[1] Add a new product")

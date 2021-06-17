@@ -8,8 +8,10 @@ class ProductController:
     def __init__(self) -> None:
         """ Default constructor. """
         self.cursor = cursor
+        self.KEY_LIST = ["Product ID", "Product Name",
+                         "Product Price", "Product QTY"]
 
-    def add_new_product(self, product: Product):
+    def add_new_product(self, product: Product) -> None:
         """
         Add a new product into the database
         :param product: Product class instance
@@ -37,18 +39,35 @@ class ProductController:
         Fetch all the products from the database
         :return: List of a dictionary
         """
-        KEY_LIST = ["Product ID", "Product Name",
-                    "Product Price", "Product QTY"]
+
         SQL_QUERY = "SELECT * FROM `product-crud`.`products`"
         returned_list = list()
         self.cursor.execute(SQL_QUERY)
-
+        # inserting all data to returned_list
         for values in self.cursor:
             if values == None:
                 break
-            payload = dict()
+            payload = dict()  # empty dictionary
             for i in range(1, len(values)):
-                payload[KEY_LIST[i-1]] = values[i]
+                payload[self.KEY_LIST[i-1]] = values[i]
             returned_list.append(payload)
-
+        # returning
         return returned_list
+
+    def get_product_by_product_id(self, product_id: str) -> dict:
+        """
+        Fetch the product from the database by its product_id
+        :param product_id: the product_id of that product
+        :return: a dictionary of that fetched product
+        """
+        product = dict()  # empty dictionary
+        SQL_QUERY = f"SELECT * FROM `product-crud`.`products` WHERE product_id = '{product_id}'"
+        self.cursor.execute(SQL_QUERY)
+        datas = self.cursor.fetchone()  # fetched data from database
+        if datas == None:
+            return product
+        # adding data to the dictionary
+        for i in range(1, len(datas)):
+            product[self.KEY_LIST[i-1]] = datas[i]
+        # returning
+        return product
