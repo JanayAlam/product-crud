@@ -86,3 +86,15 @@ class ProductController:
         SQL_QUERY = f"DELETE FROM `product-crud`.`products` WHERE (`product_id` = '{product_id}');"
         self.cursor.execute(SQL_QUERY)
         return True
+
+    def remove_all_product_by_name(self, product_name) -> None:
+        """
+        Remove all the prodcuts from the database. Find the product and then delete it one by one.
+        :param product_name: the product_name of that product
+        """
+        # checking if the given product id is valid or not
+        SQL_QUERY = f"DELETE FROM `product-crud`.`products` WHERE product_name = '{product_name}'"
+        self.cursor.execute(SQL_QUERY)  # executing the query
+        mydb.commit()  # saving the database
+        print("SUCCESS: All product deleted from the database"
+              + " if there was any with that name")

@@ -50,3 +50,7 @@ while True:
             print("SUCCESS: Product removed from the database")
         else:
             print("Could not remove the product")
+    elif op == 5:
+        # remove all product by product name
+        name = pyip.inputStr("Enter the product name: ")
+        productController.remove_all_product_by_name(name)
