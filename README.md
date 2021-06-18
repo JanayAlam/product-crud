@@ -33,7 +33,7 @@
 ### For windows users
 1. Go to cmd/powershell/gitbash and navigate to a file where you want to place this code
 2. Run `git clone https://github.com/JanayAlam/product-crud.git`
-3. Run `cd ./product-crud`
+3. Run `cd .\product-crud`
 4. Run `virtualenv venv`
 5. Run `\path\to\env\Scripts\activate.bat`
 6. Run `pip install -r requirements.txt`
