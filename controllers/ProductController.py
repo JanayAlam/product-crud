@@ -1,3 +1,4 @@
+import pyinputplus as pyip
 from db.config import cursor, mydb
 from helpers.helper import check_duplicate_product
 from models.Product import Product
@@ -72,7 +73,7 @@ class ProductController:
         # returning
         return product
 
-    def remove_product_by_product_id(self, product_id) -> bool:
+    def remove_product_by_product_id(self, product_id: str) -> bool:
         """
         Remove the prodcut from the database. Find the product and then delete it.
         :param product_id: the product_id of that product
@@ -87,7 +88,7 @@ class ProductController:
         self.cursor.execute(SQL_QUERY)
         return True
 
-    def remove_all_product_by_name(self, product_name) -> None:
+    def remove_all_product_by_name(self, product_name: str) -> None:
         """
         Remove all the prodcuts from the database. Find the product and then delete it one by one.
         :param product_name: the product_name of that product
@@ -98,3 +99,35 @@ class ProductController:
         mydb.commit()  # saving the database
         print("SUCCESS: All product deleted from the database"
               + " if there was any with that name")
+
+    def change_qty_of_a_product(self, product_id: str, value: float) -> bool:
+        """
+        Change the qty property of a product
+        :param product_id: product id of the product
+        :param value: value to decrease or increase
+        """
+        product = self.get_product_by_product_id(product_id)
+        if len(product.values()) == 0:
+            return False
+        # if all OK
+        new_qty = product['Product QTY'] + value
+        SQL_QUERY = f"UPDATE `product-crud`.`products` SET `product_qty` = '{new_qty}' WHERE (`product_id` = '{product_id}')"
+        self.cursor.execute(SQL_QUERY)  # executing the query
+        mydb.commit()  # saving the database
+        return True
+
+    def increase_qty(self, product_id: str) -> bool:
+        """
+        increase the qty
+        :param product_id: id of that product
+        """
+        value = pyip.inputFloat("Enter the amount to increase: ")
+        return self.change_qty_of_a_product(product_id, value)
+
+    def decrease_qty(self, product_id: str) -> bool:
+        """
+        decrease the qty
+        :param product_id: id of that product
+        """
+        value = pyip.inputFloat("Enter the amount to increase: ")
+        return self.change_qty_of_a_product(product_id, (-1) * value)
