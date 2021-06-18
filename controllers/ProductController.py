@@ -100,7 +100,7 @@ class ProductController:
         print("SUCCESS: All product deleted from the database"
               + " if there was any with that name")
 
-    def change_qty_of_a_product(self, product_id: str, value: float) -> bool:
+    def __change_qty_of_a_product(self, product_id: str, value: float) -> bool:
         """
         Change the qty property of a product
         :param product_id: product id of the product
@@ -122,7 +122,7 @@ class ProductController:
         :param product_id: id of that product
         """
         value = pyip.inputFloat("Enter the amount to increase: ")
-        return self.change_qty_of_a_product(product_id, value)
+        return self.__change_qty_of_a_product(product_id, value)
 
     def decrease_qty(self, product_id: str) -> bool:
         """
@@ -130,4 +130,4 @@ class ProductController:
         :param product_id: id of that product
         """
         value = pyip.inputFloat("Enter the amount to increase: ")
-        return self.change_qty_of_a_product(product_id, (-1) * value)
+        return self.__change_qty_of_a_product(product_id, (-1) * value)
