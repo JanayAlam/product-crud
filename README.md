@@ -10,6 +10,15 @@
 
 ## To run this application
 
+### For all user
+- MySQL database must have a database name 'product-crud' and a table name 'products'
+- Table 'products' must have these fields
+    1. id (int, Primary Key, Not Null, Auto Implement)
+    2. product_id (varchar(45), Not Null)
+    3. product_name (varchar(45), Not Null)
+    4. product_price (float, Not Null)
+    5. product_qty (int, Not Null)
+
 ### For ubuntu/Linux users
 1. Go to terminal and navigate to a file where you want to place this code
 2. Run `git clone https://github.com/JanayAlam/product-crud.git`
