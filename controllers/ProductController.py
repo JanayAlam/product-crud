@@ -12,6 +12,10 @@ class ProductController:
         self.KEY_LIST = ["Product ID", "Product Name",
                          "Product Price", "Product QTY"]
 
+    def __execute_and_save(self, SQL_QUERY: str) -> None:
+        self.cursor.execute(SQL_QUERY)  # executing the query
+        mydb.commit()  # saving the database
+
     def add_new_product(self, product: Product) -> None:
         """
         Add a new product into the database
@@ -24,11 +28,8 @@ class ProductController:
             values = (f"'{product.get_product_id()}', '{product.get_product_name()}',"
                       + f"'{product.get_product_price()}', '{product.get_product_qty()}'")
             # sql query executing
-            self.cursor.execute(
-                f"INSERT INTO `product-crud`.`products` ({fileds}) VALUES({values})"
-            )
-            # saving
-            mydb.commit()
+            SQL_QUERY = f"INSERT INTO `product-crud`.`products` ({fileds}) VALUES({values})"
+            self.__execute_and_save(SQL_QUERY)
             # printing the message
             print("SUCCESS: Product added into the database")
         except AttributeError:
@@ -95,8 +96,7 @@ class ProductController:
         """
         # checking if the given product id is valid or not
         SQL_QUERY = f"DELETE FROM `product-crud`.`products` WHERE product_name = '{product_name}'"
-        self.cursor.execute(SQL_QUERY)  # executing the query
-        mydb.commit()  # saving the database
+        self.__execute_and_save(SQL_QUERY)
         print("SUCCESS: All product deleted from the database"
               + " if there was any with that name")
 
@@ -112,8 +112,7 @@ class ProductController:
         # if all OK
         new_qty = product['Product QTY'] + value
         SQL_QUERY = f"UPDATE `product-crud`.`products` SET `product_qty` = '{new_qty}' WHERE (`product_id` = '{product_id}')"
-        self.cursor.execute(SQL_QUERY)  # executing the query
-        mydb.commit()  # saving the database
+        self.__execute_and_save(SQL_QUERY)
         return True
 
     def increase_qty(self, product_id: str) -> bool:
@@ -131,3 +130,37 @@ class ProductController:
         """
         value = pyip.inputFloat("Enter the amount to increase: ")
         return self.__change_qty_of_a_product(product_id, (-1) * value)
+
+    def change_product_name(self, product_id: str) -> None:
+        """
+        Change the product name
+        :param product_id: product id of that product
+        """
+        product = self.get_product_by_product_id(product_id)
+        if len(product.values()) == 0:
+            print("No product found")
+            return
+        # all OK
+        print(f"Product name is: {product['Product Name']}")
+        new_name = pyip.inputStr("Enter a new name: ")
+        SQL_QUERY = f"UPDATE `product-crud`.`products` SET `product_name` = '{new_name}' WHERE (`product_id` = '{product_id}')"
+        self.__execute_and_save(SQL_QUERY)
+        # printing the message
+        print("SUCCESS: Product name changed")
+
+    def change_product_price(self, product_id: str) -> None:
+        """
+        Change the product price
+        :param product_id: product id of that product
+        """
+        product = self.get_product_by_product_id(product_id)
+        if len(product.values()) == 0:
+            print("No product found")
+            return
+        # all OK
+        print(f"Product price is: {product['Product Price']}")
+        new_price = pyip.inputFloat("Enter a new price: ")
+        SQL_QUERY = f"UPDATE `product-crud`.`products` SET `product_price` = '{new_price}' WHERE (`product_id` = '{product_id}')"
+        self.__execute_and_save(SQL_QUERY)
+        # printing the message
+        print("SUCCESS: Product price changed")

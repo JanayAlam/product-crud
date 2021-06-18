@@ -42,7 +42,7 @@ def check_duplicate_product(product_id: str) -> bool:
     return len(rows.fetchall()) != 0
 
 
-def menu_options():
+def menu_options() -> None:
     """ Display the menu items """
     print("================== MENU ==================")
     print("0 to exit the application")

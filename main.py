@@ -12,14 +12,14 @@ if __name__ != "__main__":
 productController = ProductController()
 
 
-def inputId():
+def inputId() -> str:
     """ take product id input from the user and return that value """
     id = pyip.inputStr("Enter the product id: ")
     return id
 
 
 while True:
-    menu_options()
+    menu_options() # from helper file
     op = pyip.inputInt(">>> ", min=0, max=9)
 
     if op == 0:
@@ -80,8 +80,8 @@ while True:
     elif op == 8:
         # change the name of a perticular product
         id = inputId()
-        pass
+        productController.change_product_name(id)
     elif op == 9:
         # change the price of a perticular product
         id = inputId()
-        pass
+        productController.change_product_price(id)
