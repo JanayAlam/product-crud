@@ -10,7 +10,7 @@
 
 ## To run this application
 
-### For all user
+### For all users
 - MySQL database must have a database name 'product-crud' and a table name 'products'
 - Table 'products' must have these fields
     1. id (int, Primary Key, Not Null, Auto Implement)
