@@ -35,7 +35,7 @@
 2. Run `git clone https://github.com/JanayAlam/product-crud.git`
 3. Run `cd .\product-crud`
 4. Run `virtualenv venv`
-5. Run `\path\to\env\Scripts\activate.bat`
+5. Run `\path\to\env\Scripts\activate`
 6. Run `pip install -r requirements.txt`
 7. Run `cp default.env .env`
 8. Open the folder in your vs code editor or anything you like and edit the .eve file. Fill the blank option with your database username, password, databse name, host (localhost).
