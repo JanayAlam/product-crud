@@ -41,7 +41,6 @@ class ProductController:
         Fetch all the products from the database
         :return: List of a dictionary
         """
-
         SQL_QUERY = "SELECT * FROM `product-crud`.`products`"
         returned_list = list()
         self.cursor.execute(SQL_QUERY)
